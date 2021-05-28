@@ -1,0 +1,43 @@
+
+%include "io.inc"
+
+section .text
+global CMAIN
+CMAIN:
+    mov ebp, esp; for correct debugging
+again: ;
+mov ah, 0x01; DOS­функция чтения символа 
+GET_CHAR ah; 
+mov dl, al ;копирование считанного символа в DL
+cmp dl, 0x21 ;нажат "Enter"?
+jz endprog ;  если да, то переход к концу программы
+PRINT_CHAR ah ;
+ jz endprog ; если да, то переход к концу программы
+ PRINT_CHAR ah; 
+mov ah, 0x01;DOS­функция вывода символа 
+GET_CHAR ah; 
+mov dl, al ;копирование считанного символа в DL
+cmp dl, 0x21 ;;копирование считанного символа в DL
+jz endprog ;если да, то переход к концу программы
+PRINT_CHAR ah ;
+ jz endprog ;если да, то переход к концу программы
+ PRINT_CHAR ah; 
+ mov ah, 0x01;DOS­функция вывода символа 
+GET_CHAR ah; 
+mov dl, al ;копирование считанного символа в DL
+cmp dl, 0x21 ;;копирование считанного символа в DL
+jz endprog ; если да, то переход к концу программы
+PRINT_CHAR ah ;
+ jz endprog ; если да, то переход к концу программы
+ PRINT_CHAR ah; mov ah, 0x01;
+GET_CHAR ah; 
+mov dl, al ;
+cmp dl, 0x21 ;вызов SMN 
+ jz endprog ; если да, то переход к концу программы
+ PRINT_CHAR ah; 
+endprog: 
+mov ah , 0x4C;DOS­функция завершения программы
+int 0x21; вызов DOS 
+jz endprog;
+       xor eax, eax
+    ret;
